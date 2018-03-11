@@ -1,0 +1,83 @@
+@import 'src/colors.scss';
+.file--inputs {
+  display: table;
+  user-select: none;
+  width: 100%;
+  height: 15%;
+  border-bottom: 1px solid white;
+  .file-input {
+    cursor: pointer;
+    display: table-cell;
+    width: 50%;
+    height: 100%;
+    vertical-align: middle;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    font-size: 26px;
+    background-image: url(../../../assets/plus.svg); //  Icon made by https://www.flaticon.com/authors/lyolya from www.flaticon.com 
+    &.input {
+      background-color: $color_sunFlower_3;
+    }
+    &.output {
+      background-color: $color_grapeFruit_3;
+    }
+    &.drag {
+      border: 3px dashed rgb(255, 255, 255);
+    }
+    background-size: 32px;
+    background-repeat: no-repeat;
+    background-position: 25% 49%;
+  }
+}
+
+.file--list {
+  display: flex;
+  background: $color_lightGray_1;
+  flex-direction: column;
+  width: 100%;
+  height: 70%;
+  overflow-y: overlay;
+  .file-item {
+    display: table;
+    width: 100%;
+    height: 13%;
+    border-bottom: 1px solid #fff;
+    .file-option {
+      display: table-cell;
+      width: 50%;
+      vertical-align: middle;
+      text-align: center;
+      font-size: 17px;
+      color: white;
+      &.input {
+        background: $color_blueJeans_3;
+      }
+      &.output {
+        background: $color_mint_3;
+      }
+    }
+  }
+}
+
+.file--buttons {
+  width: 100%;
+  height: 15%;
+  display: table;
+  .file-button {
+    cursor: pointer;
+    display: table-cell;
+    width: 50%;
+    vertical-align: middle;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    font-size: 26px;
+    &.generate {
+      background: $color_darkGray_3;
+    }
+    &.validate {
+      background: $color_darkGray_2;
+    }
+  }
+}

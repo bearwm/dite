@@ -1,0 +1,11 @@
+<div *ngIf="open" class="popup--window">
+    <img
+        class="popup-close"
+        (click)="close()"
+        src="../../../assets/plus.svg"
+        alt
+    >
+    <div class="popup-content">
+        <ng-content></ng-content>
+    </div>
+</div>

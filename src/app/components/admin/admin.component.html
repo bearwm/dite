@@ -1,0 +1,76 @@
+<div class="file--inputs">
+    <input
+        (change)="inputFile($event)"
+        class="box__file"
+        type="file"
+        name="input"
+        id="input"
+        multiple
+        hidden
+    >
+    <label
+        class="file-input input"
+        [class.drag]="dragin"
+        (dragover)="dragin=true; dragOver($event)"
+        (dragleave)="dragin=false"
+        (drop)="inputFile($event, true)"
+        for="input"
+    >
+        input
+    </label>
+
+    <input
+        (change)="outputFile($event)"
+        class="box__file"
+        type="file"
+        name="output"
+        id="output"
+        multiple
+        hidden
+    >
+    <label
+        class="file-input output"
+        [class.drag]="dragout"
+        (dragover)="dragout=true; dragOver($event)"
+        (dragleave)="dragout=false"
+        (drop)="outputFile($event, true)"
+        for="output"
+    >
+        output
+    </label>
+</div>
+
+<div class="file--list">
+    <virtual-scroll
+        [items]="files"
+        (update)="viewPortItems = $event"
+    >
+        <div
+            *ngFor="let file of viewPortItems"
+            class="file-item"
+        >
+            <p
+                *ngIf="file?.input"
+                class="file-option input"
+            >
+                {{file.input?.name}}
+            </p>
+            <p
+                *ngIf="file?.output"
+                class="file-option output"
+            >
+                {{file.output?.name}}
+            </p>
+        </div>
+    </virtual-scroll>
+</div>
+
+<div class="file--buttons">
+    <!-- <div class="file-button validate">Options</div> -->
+    <div
+        (click)="generate()"
+        class="file-button generate"
+    >
+        Generate
+    </div>
+</div>

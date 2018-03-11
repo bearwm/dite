@@ -1,0 +1,33 @@
+<div class="files">
+  <input (change)="testFile($event)" class="box__file" type="file" name="test" id="test" accept=".tbm" hidden>
+  <label for="test" [class.drag]="dragin" (dragover)="dragin=true; dragOver($event)" (dragleave)="dragin=false" (drop)="testFile($event, true)"
+    class="file test">
+    <p class="file--type">TEST</p>
+    <p class="file--extension">
+      {{ files?.test ? files.test.name : '.tbm' }}
+    </p>
+  </label>
+
+  <input (change)="softwareFile($event)" class="box__file" type="file" name="software" id="software" accept=".cpp" hidden>
+  <label for="software" [class.drag]="dragout" (dragover)="dragout=true; dragOver($event)" (dragleave)="dragout=false" (drop)="softwareFile($event, true)"
+    class="file software">
+    <p class="file--type">SOFTWARE</p>
+    <p class="file--extension">
+      {{ files?.software ? files.software.name : '.cpp' }}
+    </p>
+  </label>
+</div>
+
+<div class="validations">
+  <div (click)="debug()" class="validation test">
+    Debug
+    <br>
+    <p *ngIf="results" class="result--success">{{results | successResults}}</p>
+    <p *ngIf="results">/{{results.length}}</p>
+  </div>
+  <div (click)="validate()" class="validation soft">
+    Validate
+  </div>
+</div>
+
+<app-debug-user *ngIf="debugPopup" (closed)="debugClose()" [list]="results"></app-debug-user>

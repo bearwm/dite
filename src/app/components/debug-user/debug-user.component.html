@@ -1,0 +1,19 @@
+<app-popup-window (closed)="close()">
+    <div class="test-list">
+        <div class="item test--result">Result</div>
+        <div class="test-result--list">
+            <virtual-scroll
+                [items]="list"
+                (update)="viewPortItems = $event"
+            >
+                <div
+                    *ngFor="let item of viewPortItems; let i = index"
+                    [class.success]="item"
+                    class="item list--item"
+                >
+                    {{ item ? 'Valid' : 'Invalid'}}
+                </div>
+            </virtual-scroll>
+        </div>
+    </div>
+</app-popup-window>

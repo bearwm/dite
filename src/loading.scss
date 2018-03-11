@@ -1,0 +1,18 @@
+@import 'src/colors.scss';
+
+svg#loader-pencil {
+  fill: $color_darkGray_3;
+}
+
+#line {
+  animation: linePencil .8s infinite linear;
+}
+
+@keyframes linePencil {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-150px);
+  }
+}

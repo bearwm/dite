@@ -1,0 +1,29 @@
+@import 'src/colors.scss';
+.popup--window {
+  position: absolute;
+  display: table;
+  width: 80%;
+  height: 100%;
+  top: 0;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10% 10%;
+  .popup-content {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: $color_lightGray_1;
+    border-radius: 3px;
+  }
+  .popup-close {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 3%;
+    right: 3%;
+    transform: rotate(45deg);
+    &:hover {
+        transform: rotate(405deg)!important;
+        transition: all 0.5s ease-in-out;
+    }
+  }
+}

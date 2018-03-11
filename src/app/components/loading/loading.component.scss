@@ -1,0 +1,30 @@
+@import 'src/colors.scss';
+
+.loading {
+  position: absolute;
+  display: table;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background: $color_mint_3;
+  .container {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    .circle {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto;
+      border-radius: 100%;
+      border: 10px solid rgba(255, 255, 255, 0.2);
+      border-top-color: #FFF;
+      animation: spin 1s infinite linear;
+    }
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

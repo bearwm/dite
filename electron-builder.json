@@ -1,0 +1,30 @@
+{
+  "productName": "Dite",
+  "asar": false,
+  "directories": {
+    "app": "dist",
+    "output": "app-builds"
+  },
+  "win": {
+    "icon": "dist/favicon",
+    "extraResources": {
+      "from": "resources/windows",
+      "to": "windows"
+    },
+    "target": [
+      "nsis"
+    ]
+  },
+  "mac": {
+    "icon": "dist/favicon",
+    "target": [
+      "dmg"
+    ]
+  },
+  "linux": {
+    "icon": "dist",
+    "target": [
+      "AppImage"
+    ]
+  }
+}

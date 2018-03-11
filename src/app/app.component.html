@@ -1,0 +1,8 @@
+<div
+    class="back--button"
+    *ngIf="router.url !== '/'"
+    routerLink="/"
+    alt="Icon mady by https://www.flaticon.com/authors/robin-kylander from www.flaticon.com"
+></div>
+<router-outlet></router-outlet>
+<app-loading *ngIf="loading"></app-loading>
