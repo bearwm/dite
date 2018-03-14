@@ -17,8 +17,8 @@ export class GenerateService {
                 const input = await fileService.fileContent(test.input.path);
                 const output = await fileService.fileContent(test.output.path);
                 data.push({
-                    input: input.split(' '),
-                    output: output.split(' '),
+                    input: input.split(/\s+/g),
+                    output: output.split(/\s+/g),
                 });
             } catch (e) {
                 throw e;

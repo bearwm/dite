@@ -2,14 +2,14 @@
 .test-list {
   text-transform: uppercase;
   .test-result--list {
-      height: 80%;
+      height: 242px;
   }
   .item {
     display: flex;
     justify-content: center;
     align-items: center;
     &.test--result {
-      height: 20%;
+      height: 43px;
       font-size: 30px;
       background: $color_darkGray_2;
       color: white;
@@ -19,7 +19,7 @@
     }
     &.list--item {
       width: 100%;
-      height: 13%;
+      height: 39px;
       text-align: center;
       background: $color_grapeFruit_3;
       color: white;

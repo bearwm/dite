@@ -11,9 +11,10 @@ import { FileService } from './file.service';
 
 const TEMP = {
     PATH: TEMPORARY_PATH,
-    IN: 'content.in',
+    IN: '.in',
     OUT: 'content.out',
     CPP: 'content.cpp',
+    SPLIT_KEY: 'endIterationDite',
 };
 
 export class ValidateService {
@@ -36,7 +37,7 @@ export class ValidateService {
 
         const softwareContent = await fileService.fileContent(files.software.path);
 
-        const evaluationSoftware = this.transformSoft(softwareContent);
+        const evaluationSoftware = this.transformSoft(softwareContent, testContent.data.length);
 
         await fileService.saveContent(path.join(TEMP.PATH, TEMP.CPP), evaluationSoftware);
 
@@ -46,17 +47,13 @@ export class ValidateService {
     private async evaluate(data: Test) {
         const fileService = new FileService();
 
-        const results = [];
-        for (const test of data.data) {
-            await fileService.saveContent(path.join(TEMP.PATH, TEMP.IN), test.input);
-            await fileService.saveContent(path.join(TEMP.PATH, TEMP.OUT), ``);
-
-            const result = await this.evaluateSoftware();
-            const coincidence = test.output.some((item, index) => item === result[index]);
-            results.push(coincidence);
+        for (let i = 0; i < data.data.length; i++) {
+            await fileService.saveContent(path.join(TEMP.PATH, i + TEMP.IN), data.data[i].input);
         }
+        await fileService.saveContent(path.join(TEMP.PATH, TEMP.OUT), ``);
 
-        return results;
+        const result = await this.evaluateSoftware();
+        return data.data.map((test, count) => test.output.some((item, index) => item === result[count][index] ));
     }
 
     private async evaluateSoftware() {
@@ -66,25 +63,45 @@ export class ValidateService {
         const extension = PLATFORM === OS.MACOS ? 'out' : 'exe';
         const compilator = PLATFORM === OS.MACOS ? GPP_COMPILATOR.MACOS : GPP_COMPILATOR.WINDOWS;
 
-        // g++ -g -Wall -I/Users/mworkg/Desktop/dite/resources/darwin/g++/lib content.cpp -o content.cpp.out
         await cliService.execute(compilator, [TEMP.PATH], ['-g', TEMP.CPP, '-o', `${TEMP.CPP}.${extension}`]);
         await cliService.execute(`./${TEMP.CPP}.${extension}`, [TEMP.PATH], []);
 
         const result = await fileService.fileContent(path.join(TEMP.PATH, TEMP.OUT));
-        return result.split(' ');
+        const results = result.split(TEMP.SPLIT_KEY);
+        return results.map(response => response.replace(TEMP.SPLIT_KEY, '').split(/\s+/g));
     }
 
-    private transformSoft(content: string): string {
+    private transformSoft(content: string, count: number): string {
         const requiredContent = `
         #include <fstream>
-        std::fstream cin("content.in");
-        std::fstream cout("content.out");
+        #include <string>
+        std::ifstream cin;
+        std::ofstream cout("content.out");
+        `;
+
+        const iterator = `
+            int main() {
+                for(int i = 0; i < ${count}; i++) {
+                    string fileNameDite = std::to_string(i);
+                    fileNameDite += "${TEMP.IN}";
+                    cin.open(fileNameDite.c_str());
+                    diteMain();
+                    if(i != ${count - 1}) {
+                        cout << "${TEMP.SPLIT_KEY}";
+                    }
+                    cin.close();
+                }
+                return 0;
+            }
         `;
 
         return requiredContent + content
             .replace('#include <fstream>', '')
             .replace('#include <iostream>', '')
+            .replace('#include <string>', '')
             .replace('std::cin', 'cin')
-            .replace('std::cout', 'cout');
+            .replace('std::cout', 'cout')
+            .replace('main()', 'diteMain()')
+            + iterator;
     }
 }
