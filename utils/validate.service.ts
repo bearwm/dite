@@ -64,8 +64,9 @@ export class ValidateService {
         const fileService = new FileService();
 
         const extension = PLATFORM === OS.MACOS ? 'out' : 'exe';
-        const compilator = PLATFORM === OS.MACOS ? 'g++' : GPP_COMPILATOR;
+        const compilator = PLATFORM === OS.MACOS ? GPP_COMPILATOR.MACOS : GPP_COMPILATOR.WINDOWS;
 
+        // g++ -g -Wall -I/Users/mworkg/Desktop/dite/resources/darwin/g++/lib content.cpp -o content.cpp.out
         await cliService.execute(compilator, [TEMP.PATH], ['-g', TEMP.CPP, '-o', `${TEMP.CPP}.${extension}`]);
         await cliService.execute(`./${TEMP.CPP}.${extension}`, [TEMP.PATH], []);
 

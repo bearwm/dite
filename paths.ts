@@ -11,7 +11,10 @@ const RESOURCES_FOLDER = SERVE && !DEBUG
     ? path.join(__dirname, '..', 'resources')
     : path.join(__dirname, '..');
 
-export const GPP_COMPILATOR = path.join(RESOURCES_FOLDER, 'windows', 'g++', 'bin', 'g++.exe');
+export const GPP_COMPILATOR = {
+    MACOS: path.join(RESOURCES_FOLDER, 'darwin', 'g++', 'bin', 'g++'),
+    WINDOWS: path.join(RESOURCES_FOLDER, 'windows', 'g++', 'bin', 'g++.exe'),
+}
 
 export function initTemporaryPath() {
     if (!fs.existsSync(TEMPORARY_PATH)) {

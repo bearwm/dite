@@ -17,6 +17,10 @@
   },
   "mac": {
     "icon": "dist/favicon",
+    "extraResources": {
+      "from": "resources/darwin",
+      "to": "darwin"
+    },
     "target": [
       "dmg"
     ]
