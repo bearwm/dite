@@ -5,6 +5,8 @@ import * as url from 'url';
 import { Handler } from './bus/handler';
 import { initTemporaryPath } from './paths';
 
+const autoUpdater = require('electron-updater').autoUpdater;
+
 let win, serve;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
@@ -45,6 +47,7 @@ function createWindow() {
 
   Handler.getInstance().init(ipcMain);
   initTemporaryPath();
+  autoUpdater.checkForUpdatesAndNotify();
 }
 
 try {

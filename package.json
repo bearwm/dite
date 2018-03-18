@@ -1,6 +1,6 @@
 {
   "name": "dite",
-  "version": "1.0.0",
+  "version": "v0.0.1",
   "description": "Tool used for evaluate C++ programs",
   "homepage": "https://bearwm.com",
   "author": {
@@ -31,11 +31,14 @@
     "electron:mac": "npm run build:prod && npx electron-builder build --mac",
     "test": "karma start ./karma.conf.js",
     "pree2e": "webdriver-manager update --standalone false --gecko false --quiet && npm run build",
-    "e2e": "protractor ./protractor.conf.js"
+    "e2e": "protractor ./protractor.conf.js",
+    "release": "build",
+    "publish": "./node_modules/.bin/electron-builder --publish always"
   },
   "dependencies": {
     "@angular/animations": "^5.2.7",
     "angular2-virtual-scroll": "^0.3.2",
+    "electron-updater": "^2.21.0",
     "ngx-toastr": "^8.3.0"
   },
   "devDependencies": {
